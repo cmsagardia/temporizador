@@ -1,0 +1,98 @@
+package curso_Java_012;
+
+import javax.swing.*;
+import java.awt.event.*;
+import java.util.*;
+import javax.swing.Timer;
+import java.awt.Toolkit;
+
+/**
+ *
+ * @author Usuario
+ */
+public class Clases_Internas {
+    
+    public static void main(String[] args){
+        
+      Reloj miReloj=new Reloj();
+      
+      miReloj.enMarcha(3000,true);
+      
+      JOptionPane.showMessageDialog(null, "Pulse aceptar ");
+        
+      System.exit(0);
+    }
+    
+}
+
+class Reloj{
+    
+   /* public Reloj(int intervalo, boolean sonido){
+        
+        this.intervalo=intervalo;
+        this.sonido=sonido;
+        
+    }*/
+    
+    public void enMarcha(int intervalo, final boolean sonido){
+        
+        
+        //clase interna local no debe llevar ningun modificador de acceso
+        //Puede acceder a los campos de clase y variables locales, pero las clases
+        //externas no puden hacerlo
+        class DameLaHora2 implements ActionListener{
+        //REGLA: cuando tenemos una clase interna que va a acceder a una variable
+        //local ("sonido") debemos declarada como "final" a la misma
+        @Override
+        public void actionPerformed(ActionEvent evento){
+            
+            Date ahora=new Date();
+            
+            System.out.println("Hora cada 3 segundo"+ahora);
+            
+            if(sonido){
+                
+                Toolkit.getDefaultToolkit().beep();
+                
+            }
+        }
+        
+    }
+        
+        
+        
+        ActionListener oyente=new DameLaHora2();
+        
+        Timer miTemporizador=new Timer(intervalo, oyente);
+        
+        miTemporizador.start();
+        
+    }
+    //las clases internas pueden 
+    //tener el modificador de acceso privat
+/*public void enMarcha(int intervalo, boolean sonido){
+        
+        
+        //clase interna local no debe llevar ningun modificador de acceso
+        //Puede acceder a los campos de clase y variables locales, pero las clases
+        //externas no puden hacerlo
+        class DameLaHora2 implements ActionListener{
+        
+        @Override
+        public void actionPerformed(ActionEvent evento){
+            
+            Date ahora=new Date();
+            
+            System.out.println("Hora cada 3 segundo"+ahora);
+            
+            if(sonido){
+                
+                Toolkit.getDefaultToolkit().beep();
+                
+            }
+        }
+        
+    }*/
+    
+    
+}
